@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using VendingMachine.Models;
 
 namespace VendingMachineTests
 {
@@ -9,13 +10,14 @@ namespace VendingMachineTests
         {
             var coinService = new VendingMachine.Services.CoinService();
             
-            Assert.AreEqual(true, coinService.CheckCoin(0.01));
-            Assert.AreEqual(true, coinService.CheckCoin(0.05));
-            Assert.AreEqual(true, coinService.CheckCoin(0.25));
-            Assert.AreEqual(true, coinService.CheckCoin(0.50));
-            Assert.AreEqual(true, coinService.CheckCoin(1));
-            Assert.AreEqual(false, coinService.CheckCoin(1.1));
-            Assert.AreEqual(false, coinService.CheckCoin(-1));
+            Assert.AreEqual(Coin.Cent, coinService.CheckCoin(0.01));
+            Assert.AreEqual(Coin.Nickel, coinService.CheckCoin(0.05));
+            Assert.AreEqual(Coin.Dime, coinService.CheckCoin(0.10));
+            Assert.AreEqual(Coin.QuarterDollar, coinService.CheckCoin(0.25));
+            Assert.AreEqual(Coin.HalfDollar, coinService.CheckCoin(0.50));
+            Assert.AreEqual(Coin.Dollar, coinService.CheckCoin(1));
+            Assert.AreEqual(Coin.BadCoin, coinService.CheckCoin(1.1));
+            Assert.AreEqual(Coin.BadCoin, coinService.CheckCoin(-1));
         }
     }
 }

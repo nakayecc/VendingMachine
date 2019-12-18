@@ -1,19 +1,24 @@
-﻿namespace VendingMachine.Services
+﻿using VendingMachine.Models;
+
+namespace VendingMachine.Services
 {
     public class CoinService
     {
-        
-        public bool CheckCoin(double coin)
+        public CoinService()
+        {
+        }
+
+        public Coin CheckCoin(double coin)
         {
             return coin switch
             {
-                0.01 => true,
-                0.05 => true,
-                0.10 => true,
-                0.25 => true,
-                0.50 => true,
-                1 => true,
-                _ => false
+                0.01 => Coin.Cent,
+                0.05 => Coin.Nickel,
+                0.10 => Coin.Dime,
+                0.25 => Coin.QuarterDollar,
+                0.50 => Coin.HalfDollar,
+                1 => Coin.Dollar,
+                _ => Coin.BadCoin
             };
         }
     }
