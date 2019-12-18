@@ -8,7 +8,7 @@ namespace VendingMachine.Services
         {
         }
 
-        public Coin CheckCoin(double coin)
+        public Coin InsertCoinToMachine(double coin)
         {
             return coin switch
             {
