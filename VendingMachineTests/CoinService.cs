@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using VendingMachine.Models;
+using VendingMachine.Services;
 
 namespace VendingMachineTests
 {
@@ -18,6 +19,25 @@ namespace VendingMachineTests
             Assert.AreEqual(Coin.Dollar, coinService.InsertCoinToMachine(1));
             Assert.AreEqual(Coin.BadCoin, coinService.InsertCoinToMachine(1.1));
             Assert.AreEqual(Coin.BadCoin, coinService.InsertCoinToMachine(-1));
+        }
+
+        [Test]
+
+        public void AddMoneyToCorrectWallet()
+        {
+            var machine = new Machine();
+            var coinService = new VendingMachine.Services.CoinService();
+            var machineServices = new MachineServices(machine,coinService);
+            
+            
+            machineServices.PutCoinToMachine(0.50);
+            Assert.AreEqual(machineServices.Machine.Coins[Coin.HalfDollar],1);
+            machineServices.PutCoinToMachine(0.50);
+            Assert.AreEqual(machineServices.Machine.Coins[Coin.HalfDollar],2);
+            machineServices.PutCoinToMachine(0.60);
+            Assert.AreEqual(machineServices.Machine.RejectCoins[0.60], 1);
+
+
         }
     }
 }
