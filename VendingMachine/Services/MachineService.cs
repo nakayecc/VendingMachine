@@ -1,4 +1,5 @@
-﻿using VendingMachine.Models;
+﻿using System;
+using VendingMachine.Models;
 
 namespace VendingMachine.Services
 {
@@ -27,7 +28,6 @@ namespace VendingMachine.Services
             }
             
         }
-
         private void AddRejectedCoinToWallet(double coin)
         {
             if (Machine.RejectCoins.ContainsKey(coin))
@@ -39,17 +39,46 @@ namespace VendingMachine.Services
                 Machine.RejectCoins.Add(coin, 1);
             }
         }
-
         private void AddGoodCoinToWallet(Coin coin)
         {
-            if (Machine.Coins.ContainsKey(coin))
+            if (Machine.CoinsInsert.ContainsKey(coin))
             {
-                Machine.Coins[coin] += 1;
+                Machine.CoinsInsert[coin] += 1;
             }
             else
             {
-                Machine.Coins.Add(coin, 1);
+                Machine.CoinsInsert.Add(coin, 1);
             }
+        }
+        public bool ItemInMachine(Product product)
+        {
+            return Machine.Products.ContainsKey(product);
+        }
+        public void BuyItem(double userCoin, Product product)
+        {
+            if (!(userCoin >= product.Price)) return;
+            
+            if (Machine.Products[product] == 1)
+            {
+                Machine.Products.Remove(product);
+            }
+            else
+            {
+                Machine.Products[product] -= 1;
+            }
+        }
+
+        public double ValueInsertCoin()
+        {
+            var valueInMachine = 0.0;
+        
+            foreach (var (key, value) in Machine.CoinsInsert)
+            {
+                valueInMachine += (Convert.ToDouble(key) / 100) * value;
+            }
+
+
+            return valueInMachine;
         }
     }
 }
