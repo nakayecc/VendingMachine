@@ -31,9 +31,9 @@ namespace VendingMachineTests
             
             
             machineServices.PutCoinToMachine(0.50);
-            Assert.AreEqual(machineServices.Machine.Coins[Coin.HalfDollar],1);
+            Assert.AreEqual(machineServices.Machine.CoinsInsert[Coin.HalfDollar],1);
             machineServices.PutCoinToMachine(0.50);
-            Assert.AreEqual(machineServices.Machine.Coins[Coin.HalfDollar],2);
+            Assert.AreEqual(machineServices.Machine.CoinsInsert[Coin.HalfDollar],2);
             machineServices.PutCoinToMachine(0.60);
             Assert.AreEqual(machineServices.Machine.RejectCoins[0.60], 1);
 
